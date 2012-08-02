@@ -1,0 +1,3 @@
+[submodule "lib/mewler"]
+	path = lib/mewler
+	url = git://github.com/javajawa/Mewler.git

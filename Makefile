@@ -13,10 +13,10 @@ TBUILD=tb
 PACKAGE=dist
 
 PACKAGEJAR=$(PACKAGE)/irc.jar
-LIBS=$(wildcard lib/*.jar)
+LIBS=lib/mewler/dist/mewler.jar $(wildcard lib/*.jar)
 
 CP=$(SRC):$(LIBS: =:)
-TCP=$(TEST):$(BUILD):$(JUNIT):$(LIBS: =:)
+TCP=$(TEST):$(BUILD):$(JUNIT):$(LIBS: =:):lib/mewler/test
 
 FILES=$(shell find $(SRC) -iname *.java)
 CLASS=$(patsubst $(SRC)/%.java,$(BUILD)/%.class,$(FILES))
@@ -52,6 +52,9 @@ $(TBUILD):
 	mkdir -p $@
 $(PACKAGE):
 	mkdir -p $@
+
+lib/mewler/dist/mewler.jar::
+	$(MAKE) --directory=lib/mewler package
 
 clean:
 	-rm -f $(BUILD) -r
