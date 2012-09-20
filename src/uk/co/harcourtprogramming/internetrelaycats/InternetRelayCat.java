@@ -356,49 +356,65 @@ public class InternetRelayCat implements Runnable, RelayCat
 		return Collections.unmodifiableList(found);
 	}
 
+	private class ReconnectThread extends Thread
+	{
+		private ReconnectThread()
+		{
+			super("Reconnect Thread");
+		}
+
+		@Override
+		public void run()
+		{
+			log.warning("Waiting 30s for reconnect.");
+			try
+			{
+				Thread.sleep(30000);
+			}
+			catch (InterruptedException ex)
+			{
+				throw new RuntimeException(ex);
+			}
+
+			synchronized (botLock)
+			{
+				// Check the situation hasn't changed
+				if (isDispose() || bot != null)
+					return;
+
+				bot = connect();
+				rcThread = null;
+
+				// See if we actually achieved a connection
+				if (bot == null)
+					onDisconnect();
+				else
+					botLock.notifyAll();
+			}
+		}
+	}
+
+	private ReconnectThread rcThread = null;
+
 	void onDisconnect()
 	{
 		synchronized (botLock)
 		{
-			if (bot == null) return;
+			if (rcThread != null)
+				return;
+
 			bot = null;
+			log.warning("Disconnected from server.");
+			// TODO: Add controls for reconnection
+
+			if (isDispose())
+				return;
+
+			rcThread = new ReconnectThread();
+			rcThread.start();
 		}
-
-		log.warning("Disconnected from server.");
-		// TODO: Add controls for reconnection
-
-		if (isDispose()) return;
-
-		// FIXME: This is a mess.
-		new Thread("Reconnect Thread")
-		{
-			@Override
-			public void run()
-			{
-				log.warning("Waiting 30s for reconnect.");
-				try
-				{
-					Thread.sleep(30000);
-				}
-				catch (InterruptedException ex)
-				{
-					throw new RuntimeException(ex);
-				}
-
-				synchronized (botLock)
-				{
-					if (isDispose()) return;
-					if (bot != null) return;
-					bot = connect();
-					// See if we actually achieved a connection
-					if (bot == null)
-						onDisconnect();
-				}
-			}
-		}.start();
 	}
 
-	private final Object connlock = new Object();
 
 	protected MewlerImpl connect()
 	{
@@ -438,21 +454,16 @@ public class InternetRelayCat implements Runnable, RelayCat
 			newbot.join(channel);
 		}
 
-		synchronized (connlock)
-		{
-			connlock.notifyAll();
-		}
-
 		return newbot;
 	}
 
 	// TODO: Consider this for being added to RelayCat
 	public void waitForConnection() throws InterruptedException
 	{
-		synchronized (connlock)
+		synchronized (botLock)
 		{
 			if (isConnected()) return;
-			connlock.wait();
+			botLock.wait();
 		}
 	}
 }
