@@ -97,7 +97,7 @@ public abstract class Service
 	 */
 	protected final void log(Level lvl, String msg, Throwable ex)
 	{
-		LOG.log(lvl, ex, msg);
+		log(lvl, ex, msg);
 	}
 
 	/**
@@ -110,7 +110,7 @@ public abstract class Service
 	 */
 	protected final void log(Level lvl, String msg)
 	{
-		LOG.log(lvl, null, msg);
+		log(lvl, (Throwable)null, msg);
 	}
 
 	/**
@@ -122,9 +122,34 @@ public abstract class Service
 	 * @param msg The string message (or a key in the message catalog)
 	 * @param params array of parameters to the message
 	 */
-	protected final void log(Level lvl, String msg, Object[] params)
+	protected final void log(Level lvl, String msg, Object... params)
 	{
-		LOG.log(lvl, null, msg, params);
+		log(lvl, null, msg, params);
+	}
+
+	protected final void log(Level lvl, Throwable ex, String msg, Object... params)
+	{
+		switch (lvl.intValue())
+		{
+			case 1000: //Level.SEVERE.intValue():
+				LOG.severe(null, msg, params);
+				break;
+			case 900: //Level.WARNING.intValue():
+				LOG.warning(null, msg, params);
+				break;
+			case 800: //Level.INFO.intValue():
+				LOG.info(null, msg, params);
+				break;
+			case 500: //Level.FINE.intValue():
+				LOG.fine(null, msg, params);
+				break;
+			case 400: //Level.FINER.intValue():
+				LOG.fine(null, msg, params);
+				break;
+			default:
+				LOG.warning((Throwable)null, "Level {0} not found", lvl);
+				LOG.warning(ex, msg, params);
+		}
 	}
 
 	/**
@@ -142,7 +167,7 @@ public abstract class Service
 	 */
 	protected final void log(Level lvl, Throwable ex)
 	{
-		LOG.log(lvl, ex, null);
+		log(lvl, ex, null);
 	}
 
 	/**
