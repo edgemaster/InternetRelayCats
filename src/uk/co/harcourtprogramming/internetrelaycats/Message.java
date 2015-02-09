@@ -140,11 +140,26 @@ public class Message implements RelayCat
 	 * <p>Convenience method for messaging the user or channel this message
 	 * was received from</p>
 	 * @param message the message text
+	 * @param prefix If true, prefix a channel message with the nick of the caller
+	 * @see #message(java.lang.String, java.lang.String) message()
+	 */
+	public synchronized void replyToAll(String message, boolean prefix)
+	{
+		if (prefix && channel == null) {
+			message = nick + ": " + message;
+		}
+		message(getReplyToAllTarget(), message);
+	}
+	
+	/**
+	 * <p>Convenience method for messaging the user or channel this message
+	 * was received from</p>
+	 * @param message the message text
 	 * @see #message(java.lang.String, java.lang.String) message()
 	 */
 	public synchronized void replyToAll(String message)
 	{
-		message(getReplyToAllTarget(), message);
+		replyToAll(message, false);
 	}
 
 	/**
