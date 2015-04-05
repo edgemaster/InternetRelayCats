@@ -57,6 +57,7 @@ lib/mewler/dist/mewler.jar::
 	$(MAKE) --directory=lib/mewler package
 
 clean:
+	$(MAKE) --directory=lib/mewler clean
 	-rm -f $(BUILD) -r
 	-rm -f $(TBUILD) -r
 	-rm -f $(PACKAGE) -r
