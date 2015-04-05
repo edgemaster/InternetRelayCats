@@ -150,7 +150,7 @@ public class Message implements RelayCat
 		}
 		message(getReplyToAllTarget(), message);
 	}
-	
+
 	/**
 	 * <p>Convenience method for messaging the user or channel this message
 	 * was received from</p>
