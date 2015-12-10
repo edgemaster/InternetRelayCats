@@ -273,6 +273,12 @@ public class InternetRelayCat implements Runnable, RelayCat
 	}
 
 	@Override
+	public void setTopic(String channel, String topic)
+	{
+		bot.setTopic(channel, topic);
+	}
+
+	@Override
 	public void leave(String channel)
 	{
 		bot.part(channel);

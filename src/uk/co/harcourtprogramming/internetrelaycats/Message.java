@@ -195,6 +195,13 @@ public class Message implements RelayCat
 	}
 
 	@Override
+	public void setTopic(String channel, String topic)
+	{
+		if (dispose) return;
+		inst.setTopic(channel, topic);
+	}
+
+	@Override
 	public void leave(String channel)
 	{
 		if (dispose) return;

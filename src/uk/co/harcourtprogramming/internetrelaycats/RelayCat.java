@@ -53,6 +53,8 @@ public interface RelayCat
 	 */
 	public void join(String channel);
 
+	public void setTopic(String channel, String topic);
+
 	/**
 	 * <p>Leave a channel</p>
 	 * <p>Note: this is global for all services.
