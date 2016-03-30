@@ -267,6 +267,14 @@ public class InternetRelayCat implements Runnable, RelayCat
 	}
 
 	@Override
+	public void setTopic(String channel, String topic)
+	{
+		if (channel == null || channel.length() == 0) throw new IllegalArgumentException("Invalid channel: null or empty string");
+
+		bot.setTopic(channel, topic);
+	}
+
+	@Override
 	public void join(String channel)
 	{
 		if ( bot == null )
@@ -276,12 +284,6 @@ public class InternetRelayCat implements Runnable, RelayCat
 		}
 
 		bot.join(channel);
-	}
-
-	@Override
-	public void setTopic(String channel, String topic)
-	{
-		bot.setTopic(channel, topic);
 	}
 
 	@Override
