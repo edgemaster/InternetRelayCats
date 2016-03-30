@@ -269,6 +269,12 @@ public class InternetRelayCat implements Runnable, RelayCat
 	@Override
 	public void join(String channel)
 	{
+		if ( bot == null )
+		{
+			channels.add( channel );
+			return;
+		}
+
 		bot.join(channel);
 	}
 
@@ -281,6 +287,12 @@ public class InternetRelayCat implements Runnable, RelayCat
 	@Override
 	public void leave(String channel)
 	{
+		if ( bot == null )
+		{
+			channels.remove( channel );
+			return;
+		}
+
 		bot.part(channel);
 	}
 
