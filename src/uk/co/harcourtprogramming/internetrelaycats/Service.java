@@ -9,8 +9,6 @@ import java.util.logging.Level;
 import uk.co.harcourtprogramming.logging.LogDecorator;
 import uk.co.harcourtprogramming.logging.LogFormatter;
 
-// TODO: Switch to LogDecorator
-
 /**
  * <p>The base class for Services for {@link RelayCat}</p>
  * <p>Services form the main part of the user logic for a chat bot; they
