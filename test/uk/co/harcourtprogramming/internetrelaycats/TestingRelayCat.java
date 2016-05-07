@@ -63,7 +63,7 @@ public final class TestingRelayCat extends InternetRelayCat
 
 	}
 
-	public final static String NAME = "testBost";
+	public final static String NAME = "testBot";
 
 	public TestingRelayCat()
 	{
