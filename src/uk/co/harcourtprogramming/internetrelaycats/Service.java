@@ -59,6 +59,7 @@ public abstract class Service
 	public Service()
 	{
 		final Handler h = new ConsoleHandler();
+		h.setLevel(Level.ALL);
 		h.setFormatter(new LogFormatter()
 		{
 			@Override
@@ -75,9 +76,11 @@ public abstract class Service
 				);
 			}
 		});
+
 		Logger log = Logger.getLogger("InternetRelayCats.Service." + id);
 		log.addHandler(h);
 		log.setUseParentHandlers(false);
+
 		LOG = new LogDecorator(log);
 	}
 
