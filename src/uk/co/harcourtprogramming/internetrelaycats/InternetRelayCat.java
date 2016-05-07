@@ -267,20 +267,34 @@ public class InternetRelayCat implements Runnable, RelayCat
 	}
 
 	@Override
-	public void join(String channel)
+	public void setTopic(String channel, String topic)
 	{
-		bot.join(channel);
+		if (channel == null || channel.length() == 0) throw new IllegalArgumentException("Invalid channel: null or empty string");
+
+		bot.setTopic(channel, topic);
 	}
 
 	@Override
-	public void setTopic(String channel, String topic)
+	public void join(String channel)
 	{
-		bot.setTopic(channel, topic);
+		if ( bot == null )
+		{
+			channels.add( channel );
+			return;
+		}
+
+		bot.join(channel);
 	}
 
 	@Override
 	public void leave(String channel)
 	{
+		if ( bot == null )
+		{
+			channels.remove( channel );
+			return;
+		}
+
 		bot.part(channel);
 	}
 
