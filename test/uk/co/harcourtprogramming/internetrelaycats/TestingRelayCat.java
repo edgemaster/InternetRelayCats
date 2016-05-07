@@ -80,13 +80,13 @@ public final class TestingRelayCat extends InternetRelayCat
 	@Override
 	public void message(String target, String message)
 	{
-		messageQueue.offer(new Message(message, "name", target, false, this));
+		messageQueue.offer(new Message(message, NAME, target, false, this));
 	}
 
 	@Override
 	public void act(String target, String action)
 	{
-		messageQueue.offer(new Message(action, "name", target, true, this));
+		messageQueue.offer(new Message(action, NAME, target, true, this));
 	}
 
 	public Message getOutput()
