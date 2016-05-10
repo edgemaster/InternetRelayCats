@@ -3,9 +3,9 @@ package uk.co.harcourtprogramming.internetrelaycats;
 import java.util.Calendar;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
-import java.util.logging.Logger;
-import java.util.logging.LogRecord;
 import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 import uk.co.harcourtprogramming.logging.LogDecorator;
 import uk.co.harcourtprogramming.logging.LogFormatter;
 
@@ -133,19 +133,19 @@ public abstract class Service
 		switch (lvl.intValue())
 		{
 			case 1000: //Level.SEVERE.intValue():
-				LOG.severe(null, msg, params);
+				LOG.severe(ex, msg, params);
 				break;
 			case 900: //Level.WARNING.intValue():
-				LOG.warning(null, msg, params);
+				LOG.warning(ex, msg, params);
 				break;
 			case 800: //Level.INFO.intValue():
-				LOG.info(null, msg, params);
+				LOG.info(ex, msg, params);
 				break;
 			case 500: //Level.FINE.intValue():
-				LOG.fine(null, msg, params);
+				LOG.fine(ex, msg, params);
 				break;
 			case 400: //Level.FINER.intValue():
-				LOG.fine(null, msg, params);
+				LOG.fine(ex, msg, params);
 				break;
 			default:
 				LOG.warning((Throwable)null, "Level {0} not found", lvl);
