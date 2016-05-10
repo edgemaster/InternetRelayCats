@@ -11,4 +11,5 @@ before_install:
 install: ""
 
 after_success:
-  - mvn clean cobertura:cobertura coveralls:report
+  - mvn clean
+  - mvn cobertura:cobertura coveralls:report
