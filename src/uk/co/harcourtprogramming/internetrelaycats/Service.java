@@ -145,7 +145,7 @@ public abstract class Service
 				LOG.fine(ex, msg, params);
 				break;
 			case 400: //Level.FINER.intValue():
-				LOG.fine(ex, msg, params);
+				LOG.finer(ex, msg, params);
 				break;
 			default:
 				LOG.warning((Throwable)null, "Level {0} not found", lvl);
