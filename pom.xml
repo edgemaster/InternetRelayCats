@@ -21,17 +21,6 @@
           <repoToken>${env.coveralls_token}</repoToken>
         </configuration>
       </plugin>
-
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>cobertura-maven-plugin</artifactId>
-        <version>2.7</version>
-        <configuration>
-          <format>xml</format>
-          <maxmem>256m</maxmem>
-          <aggregate>true</aggregate>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
 
